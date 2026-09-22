@@ -31,7 +31,7 @@ function cloneInternal<T>(value: T, seen: WeakMap<object, unknown>): T {
 
   if (Array.isArray(value)) {
     const clone: unknown[] = [];
-    seen.set(value, clone); // реєстрація ДО рекурсії — критично для циклів
+    seen.set(value, clone);
     for (const item of value) {
       clone.push(cloneInternal(item, seen));
     }
@@ -57,7 +57,7 @@ function cloneInternal<T>(value: T, seen: WeakMap<object, unknown>): T {
   }
   const proto = Object.getPrototypeOf(value);
   const clone = Object.create(proto);
-  seen.set(value, clone); // реєстрація ДО рекурсії
+  seen.set(value, clone);
 
   for (const key of Reflect.ownKeys(value as object)) {
     const descriptor = Object.getOwnPropertyDescriptor(value, key);
